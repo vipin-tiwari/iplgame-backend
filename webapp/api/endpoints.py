@@ -8,6 +8,7 @@ from flask_restful import Api
 from .account import Account
 from .session import Session
 from .hello import HelloWorld, EchoWorld, ProtectedWorld
+from .gamestate import GameState,GameStateReset
 
 # endpoint routing errors, not the same as application level errors handled by the ResponseJson class
 errors = {
@@ -29,8 +30,10 @@ demo_blueprint = Blueprint("demo_api", __name__)
 demo_api = Api(demo_blueprint, errors=errors)
 
 demo_api.add_resource(HelloWorld,"/hello")
-demo_api.add_resource(EchoWorld,"/echo")
 demo_api.add_resource(ProtectedWorld,"/protectedhello")
 demo_api.add_resource(Account,"/account")
 demo_api.add_resource(Session,"/session")
+
+demo_api.add_resource(GameState,"/gamestate")
+demo_api.add_resource(GameStateReset,"/gamestate/reset")
 

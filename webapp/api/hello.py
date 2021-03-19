@@ -23,6 +23,7 @@ class EchoWorld(Resource):
         parser.add_argument("vote", type=str, required=False, choices=("red", "blue", "green"),
                 location="args")
         args = parser.parse_args()
+        print(args)
 
         data = {
             "number": args.number if args.number else None,
