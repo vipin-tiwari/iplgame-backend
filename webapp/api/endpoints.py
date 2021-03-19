@@ -9,6 +9,7 @@ from .account import Account
 from .session import Session
 from .hello import HelloWorld, EchoWorld, ProtectedWorld
 from .gamestate import GameState,GameStateReset
+from .teamsdata import TeamData
 
 # endpoint routing errors, not the same as application level errors handled by the ResponseJson class
 errors = {
@@ -36,4 +37,5 @@ demo_api.add_resource(Session,"/session")
 
 demo_api.add_resource(GameState,"/gamestate")
 demo_api.add_resource(GameStateReset,"/gamestate/reset")
+demo_api.add_resource(TeamData,"/teams")
 
