@@ -1,0 +1,138 @@
+{"data":[{
+  "_id": "6054502bcad2f35a00041fe1",
+  "name": "Team-1",
+  "balanceAmount": 5000,
+  "players": [],
+  "counts": {
+    "total": 0,
+    "batsmen": 0,
+    "bowler": 0,
+    "allrounder": 0,
+    "wicketkeeper": 0
+  },
+  "_version": 1,
+  "_created": "2021-03-19T07:18:03.308Z",
+  "_createdby": "svipins.13@gmail.com",
+  "_changed": "2021-03-19T07:18:03.308Z"
+},
+{
+  "_id": "6054502bcad2f35a00041fe2",
+  "name": "Team-2",
+  "balanceAmount": 5000,
+  "players": [],
+  "counts": {
+    "total": 0,
+    "batsmen": 0,
+    "bowler": 0,
+    "allrounder": 0,
+    "wicketkeeper": 0
+  },
+  "_version": 1,
+  "_created": "2021-03-19T07:18:03.308Z",
+  "_createdby": "svipins.13@gmail.com",
+  "_changed": "2021-03-19T07:18:03.308Z"
+},
+{
+  "_id": "6054502bcad2f35a00041fe3",
+  "name": "Team-3",
+  "balanceAmount": 5000,
+  "players": [],
+  "counts": {
+    "total": 0,
+    "batsmen": 0,
+    "bowler": 0,
+    "allrounder": 0,
+    "wicketkeeper": 0
+  },
+  "_version": 4,
+  "_created": "2021-03-19T07:18:03.308Z",
+  "_createdby": "svipins.13@gmail.com",
+  "_changed": "2021-03-19T15:01:03.833Z",
+  "_changedby": "api"
+},
+{
+  "_id": "6054502bcad2f35a00041fe4",
+  "name": "Team-4",
+  "balanceAmount": 5000,
+  "players": [],
+  "counts": {
+    "total": 0,
+    "batsmen": 0,
+    "bowler": 0,
+    "allrounder": 0,
+    "wicketkeeper": 0
+  },
+  "_version": 1,
+  "_created": "2021-03-19T07:18:03.308Z",
+  "_createdby": "svipins.13@gmail.com",
+  "_changed": "2021-03-19T07:18:03.308Z"
+},
+{
+  "_id": "6054502bcad2f35a00041fe5",
+  "name": "Team-5",
+  "balanceAmount": 5000,
+  "players": [],
+  "counts": {
+    "total": 0,
+    "batsmen": 0,
+    "bowler": 0,
+    "allrounder": 0,
+    "wicketkeeper": 0
+  },
+  "_version": 1,
+  "_created": "2021-03-19T07:18:03.308Z",
+  "_createdby": "svipins.13@gmail.com",
+  "_changed": "2021-03-19T07:18:03.308Z"
+},
+{
+  "_id": "6054502bcad2f35a0004xfe5",
+  "name": "Team-6",
+  "balanceAmount": 5000,
+  "players": [],
+  "counts": {
+    "total": 0,
+    "batsmen": 0,
+    "bowler": 0,
+    "allrounder": 0,
+    "wicketkeeper": 0
+  },
+  "_version": 1,
+  "_created": "2021-03-19T07:18:03.308Z",
+  "_createdby": "svipins.13@gmail.com",
+  "_changed": "2021-03-19T07:18:03.308Z"
+},
+{
+  "_id": "6054502bcad2f35a000y1fe5",
+  "name": "Team-7",
+  "balanceAmount": 5000,
+  "players": [],
+  "counts": {
+    "total": 0,
+    "batsmen": 0,
+    "bowler": 0,
+    "allrounder": 0,
+    "wicketkeeper": 0
+  },
+  "_version": 1,
+  "_created": "2021-03-19T07:18:03.308Z",
+  "_createdby": "svipins.13@gmail.com",
+  "_changed": "2021-03-19T07:18:03.308Z"
+},
+{
+  "_id": "6054502bcad2f35a00z41fe5",
+  "name": "Team-8",
+  "balanceAmount": 5000,
+  "players": [],
+  "counts": {
+    "total": 0,
+    "batsmen": 0,
+    "bowler": 0,
+    "allrounder": 0,
+    "wicketkeeper": 0
+  },
+  "_version": 1,
+  "_created": "2021-03-19T07:18:03.308Z",
+  "_createdby": "svipins.13@gmail.com",
+  "_changed": "2021-03-19T07:18:03.308Z"
+}
+]}

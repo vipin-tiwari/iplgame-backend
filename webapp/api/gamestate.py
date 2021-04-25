@@ -5,28 +5,24 @@ from flask_restful import Resource
 from ..core.utils.responsejson import ResponseJson, MessageResponseJson
 from ..extensions.decorators import require_password
 from ..extensions.requestparser import RequestParser 
+import uuid
 
 
 class GameState(Resource):
     def __init__(self):
         self.data_url_placeholder = "https://iplgame-dc13.restdb.io/rest/%s"
-        self.headers = {
-    'content-type': "application/json",
-    'x-apikey': "bbb981b9fc2757c4de907a15523f7b47d1b9d",
-    'cache-control': "no-cache"
-    }
+        self.basedata=db.getDb('../../data/basedata.json')
+        self.team_response=db.getDb('../../data/teamdata.json')
+        self.gamestate=db.getDb('../../data/gamestate.json')
     
     def get(self):
-        gamestate_response = requests.request("GET", self.data_url_placeholder%("gamestate"), headers=self.headers)
+        gamestate_response = self.gamestate.getAll()
 
-        team_response = requests.request("GET", self.data_url_placeholder%("teamdata"), headers=self.headers)
-
-        response = gamestate_response.json()
-        response[0]['teams'] = team_response.json()
-        return response
+        return gamestate_response
 
     def post(self):
         parser = RequestParser()
+        parser.add_argument("gameid", type=str, required=True, location="form")
         parser.add_argument("bidvalue", type=int, required=True, location="form")
         parser.add_argument("bidwinningteam", type=str, required=True, location="form")
         parser.add_argument("playerId", type=int, required=True, location="form")
@@ -37,21 +33,16 @@ class GameState(Resource):
         #Add Player to Team
 
         # Remove Player frmo unsold Item
-        gamestate_response = requests.request("GET", self.data_url_placeholder%("gamestate"), headers=self.headers)
-        current_gamestate = gamestate_response.json()[0]
-        print(current_gamestate)
-        print(current_gamestate['_id'])
-        obj_id = current_gamestate['_id']
+        gamestate_response = self.gamestate.getBy({"id":args.gameid})
+        current_gamestate = gamestate_response['state']
 
-        team_query_template = '{"name":"%s"}'
-        response = requests.request("GET", self.data_url_placeholder%("teamdata"), headers=self.headers, data=team_query_template%(args.bidwinningteam))
-        teams_data = response.json()
+        current_gamestate_teamdata = current_gamestate['teams']
 
-        teams_response = None
-        for item in teams_data:
+        for item in current_gamestate_teamdata[:]:
             if item['name']==args.bidwinningteam:
                 teams_response = item
-                break
+                current_gamestate_teamdata.remove(item)
+        
 
 
         print("Winning Team ===>")
@@ -85,34 +76,24 @@ class GameState(Resource):
 
             teams_response['counts']['wicketkeeper'] = teams_response['counts']['wicketkeeper']+1
 
-        #Update the Team data
-        teamurl = "https://iplgame-dc13.restdb.io/rest/teamdata/"+str(team_id)
-        response = requests.request("PUT", teamurl, data=json.dumps(teams_response), headers=self.headers)
+        
+        current_gamestate_teamdata.append(teams_response)
+        current_gamestate['teams'] = current_gamestate_teamdata
 
-        print(teams_response)
-        print("Update team status")
-        print(response.json())
-
-        # Update Gamestate
-        gameurl = "https://iplgame-dc13.restdb.io/rest/gamestate/"+str(obj_id)
-        response = requests.request("PUT", gameurl, data=json.dumps(current_gamestate), headers=self.headers)
+        self.gamestate.updateById(args.gameid,{"state":current_gamestate})
 
         print("Update GameState ")
-        print(response.json())
 
-        return response.json()
+        return current_gamestate_teamdata
 
 
 
 
 class GameStateReset(Resource):
     def __init__(self):
-        self.data_url_placeholder = "https://iplgame-dc13.restdb.io/rest/%s"
-        self.headers = {
-    'content-type': "application/json",
-    'x-apikey': "bbb981b9fc2757c4de907a15523f7b47d1b9d",
-    'cache-control': "no-cache"
-    }
+        self.team_response=db.getDb('../../data/teamdata.json')
+        self.gamestate=db.getDb('../../data/gamestate.json')
+        self.basedata=db.getDb('../../data/basedata.json')
 
     def _create_gamestate_from_basedata(self,basedata):
         gamestate={}
@@ -145,17 +126,16 @@ class GameStateReset(Resource):
         
 
         #Fetch BaseDate
-        response = requests.request("GET", self.data_url_placeholder%("basedata"), headers=self.headers)
-        basedata = response.json()
+        basedata = self.basedata.getAll()
+
+        team_response = self.team_response.getAll()
 
         basedata_gamestate = self._create_gamestate_from_basedata(basedata)
-        #Fetch ObjectId of Gamestate Data
-        response = requests.request("GET", self.data_url_placeholder%("gamestate"), headers=self.headers)
-        current_gamestate = response.json()
-        print(current_gamestate)
-        print(current_gamestate[0]['_id'])
-        obj_id = current_gamestate[0]['_id']
 
+        new_game_id = str(uuid.uuid4())
+
+
+        
         gamestate_payload = {}
         gamestate_payload['roundNo'] = 0
         gamestate_payload['counts'] = {}
@@ -168,7 +148,7 @@ class GameStateReset(Resource):
         gamestate_payload['counts']['allrounderTotal'] = len(basedata_gamestate['allrounder'])
         gamestate_payload['counts']['bowlerTotal'] = len(basedata_gamestate['bowler'])
         gamestate_payload['counts']['batsmenTotal'] = len(basedata_gamestate['batsmen'])
-        gamestate_payload['teams'] = []
+        gamestate_payload['teams'] = team_response
         gamestate_payload['unsoldPlayers'] = {}
         gamestate_payload['unsoldPlayers']['batsmen'] = basedata_gamestate['batsmen']
         gamestate_payload['unsoldPlayers']['bowler'] = basedata_gamestate['bowler']
@@ -180,9 +160,11 @@ class GameStateReset(Resource):
 
         #Set the states
         payload = json.dumps(gamestate_payload)
-        response = requests.request("PUT", str(self.data_url_placeholder%("gamestate"))+"/"+str(obj_id), data=payload, headers=self.headers)
 
-        return response.json()
+        generated_game_id = self.gamestate.add({"state":gamestate_payload})
+
+        
+        return self.gamestate.getBy({"id":generated_game_id})
 
 
 

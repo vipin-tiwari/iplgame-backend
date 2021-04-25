@@ -1,0 +1,21 @@
+{"data":[{
+  "_id": "60544fcacad2f35a00041fd3",
+  "roundNo": 0,
+  "counts": {
+    "total": 0,
+    "batsmenSold": 0,
+    "batsmenTotal": 0,
+    "bowlerSold": 0,
+    "bowlerTotal": 0,
+    "allrounderSold": 0,
+    "allrounderTotal": 0,
+    "wicketkeeperSold": 0,
+    "wicketkeeperTotal": 0
+  },
+  "teams": [],
+  "unsoldPlayers": [],
+  "_version": 1,
+  "_created": "2021-03-19T07:16:26.623Z",
+  "_createdby": "svipins.13@gmail.com",
+  "_changed": "2021-03-19T07:16:26.623Z"
+}]}

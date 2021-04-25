@@ -2,6 +2,7 @@ from flask import request
 import requests
 import json
 from flask_restful import Resource
+from pysondb import db
 from ..core.utils.responsejson import ResponseJson, MessageResponseJson
 from ..extensions.decorators import require_password
 from ..extensions.requestparser import RequestParser 
@@ -17,7 +18,8 @@ class TeamData(Resource):
     }
     
     def get(self):
+        team_response=db.getDb('../../data/teamdata.json')
         
-        team_response = requests.request("GET", self.data_url_placeholder%("teamdata"), headers=self.headers)
+        #team_response = requests.request("GET", self.data_url_placeholder%("teamdata"), headers=self.headers)
 
         return team_response.json()
