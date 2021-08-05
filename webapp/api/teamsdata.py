@@ -18,8 +18,10 @@ class TeamData(Resource):
     }
     
     def get(self):
-        team_response=db.getDb('../../data/teamdata.json')
+        team_response=db.getDb('./data/teamdata.json')
+
+        return team_response.getAll()
         
         #team_response = requests.request("GET", self.data_url_placeholder%("teamdata"), headers=self.headers)
 
-        return team_response.json()
+        #return team_response.json()
