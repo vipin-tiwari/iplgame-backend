@@ -20,6 +20,9 @@ def before_request():
 @app.after_request
 def after_request(response):
     """ called after every request """
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTION,OPTIONS')
 
     # log the endpoint hit and any errors
     delta = int((time.time() - g.start_time) * 1000)
