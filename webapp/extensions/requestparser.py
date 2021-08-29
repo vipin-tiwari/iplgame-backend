@@ -13,6 +13,9 @@ class RequestParser(reqparse.RequestParser):
 
         namespace = self.namespace_class()
 
+        print(req.form)
+        print(req.json)
+
         # A record of arguments not yet parsed; as each is found among self.args, it will be popped out
         req.unparsed_arguments = dict(self.argument_class('').source(req)) if strict else {}
         errors = {}

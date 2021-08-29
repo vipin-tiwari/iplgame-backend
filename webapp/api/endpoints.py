@@ -8,8 +8,8 @@ from flask_restful import Api
 from .account import Account
 from .session import Session
 from .hello import HelloWorld, EchoWorld, ProtectedWorld
-from .gamestate import GameState,GameStateReset
-from .teamsdata import TeamData
+from .gamestate import GameState,GameStateReset, GameStateUpdate
+from .teamsdata import TeamData,TeamsData
 
 # endpoint routing errors, not the same as application level errors handled by the ResponseJson class
 errors = {
@@ -35,7 +35,9 @@ demo_api.add_resource(ProtectedWorld,"/protectedhello")
 demo_api.add_resource(Account,"/account")
 demo_api.add_resource(Session,"/session")
 
-demo_api.add_resource(GameState,"/gamestate")
+demo_api.add_resource(GameState,"/gamestate/<gameid>")
+demo_api.add_resource(GameStateUpdate,"/gamestate")
 demo_api.add_resource(GameStateReset,"/gamestate/reset")
-demo_api.add_resource(TeamData,"/teams")
+demo_api.add_resource(TeamsData,"/teams")
+demo_api.add_resource(TeamData,"/teams/<gameid>")
 

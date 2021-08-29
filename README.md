@@ -154,3 +154,27 @@ Postman is the easiest way to test these endpoints.
 alembic revision --autogenerate -m "update details"
 alembic upgrade head
 ```
+
+
+APIs
+
+curl -X POST \
+  http://localhost:8000/gamestate/9713880169 \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: 60f3b310-f6d5-a723-5617-1a026ec793d9' \
+  -d '{
+"bidvalue":50,
+"bidwinningteam": "Team-3",
+"playerId": 1664,
+"role": "bowler"
+}'
+
+
+curl http://ipl-game-lb-790669502.us-east-2.elb.amazonaws.com:8000/gamestate?id=9713880169
+
+
+
+curl http://ipl-game-lb-790669502.us-east-2.elb.amazonaws.com:8000/gamestate/reset
+
+
