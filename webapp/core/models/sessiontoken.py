@@ -13,8 +13,10 @@ class SessionToken(Base):
                 nullable=False)
     user_id = Column(pgsql.TEXT)
     token = Column(pgsql.TEXT)
+    role = Column(pgsql.TEXT)
     created_utc = Column(pgsql.TIMESTAMP(timezone=False), server_default=func.now())
 
-    def __init__(self, user_id: str, token: str):
+    def __init__(self, user_id: str, token: str, role: str):
         self.user_id = user_id
         self.token = token
+        self.role = role

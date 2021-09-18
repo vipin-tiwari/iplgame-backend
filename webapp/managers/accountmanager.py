@@ -25,7 +25,7 @@ class AccountManager():
             raise(e)
 
 
-    def create(self, email: str, password: str) -> ResponseJson:
+    def create(self, email: str, password: str, role: str) -> ResponseJson:
         """ create a new user account """
         try:
             with dbsession() as session:
@@ -37,16 +37,18 @@ class AccountManager():
                 # woohoo a new account!
 
                 h_password = generate_hash(password)
-                account = Account(email, h_password)
+                account = Account(email, h_password, role)
                 with dbsession() as session:
                     session.add(account)
                     user_id = account.user_id
 
                 # now create the session token the user will use going forward
-                session_token = SessionManager().create(user_id, email)
+                session_token = SessionManager().create(user_id, email, role)
                 payload = {
                     "uuid": user_id,
                     "token": session_token,
+                    "role": role,
+                    "email": email
                 }
                 return ResponseJson(payload)
 
@@ -71,14 +73,18 @@ class AccountManager():
                     with dbsession() as session:
                         account = session.query(Account)\
                             .filter(Account.email == email)\
-                            .with_entities(Account.user_id)\
+                            .with_entities(Account.user_id, Account.role)\
                             .first()
+                        print(account)
                         user_id = account.user_id
+                        role = account.role
 
-                    session_token = SessionManager().create(user_id, email)
+                    session_token = SessionManager().create(user_id, email, role)
                     return ResponseJson({
                         "uuid": user_id,
                         "token": session_token,
+                        "role": role,
+                        "email": email
                     })
         except Exception as e:
             traceback.print_exc()

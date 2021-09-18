@@ -44,6 +44,7 @@ def require_auth_header(func):
     def decorator(*args, **kwargs):
         if not request.authorization:
             return ErrorResponseJson("auth header required").make_response()
+        print(request.authorization)
         return func(*args, **kwargs)
     return decorator
 

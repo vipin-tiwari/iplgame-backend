@@ -1,0 +1,24 @@
+https://iplgame-dc13.restdb.io/home/db/60544827cad2f35a00041e82/cards
+
+
+Get basedata:
+
+curl -k -i -H "Content-Type: application/json"\
+ -H "x-apikey: bbb981b9fc2757c4de907a15523f7b47d1b9d"\
+ -X GET 'https://iplgame-dc13.restdb.io/rest/basedata'
+
+Get GameData
+curl -k -i -H "Content-Type: application/json"\
+ -H "x-apikey: bbb981b9fc2757c4de907a15523f7b47d1b9d"\
+ -X GET 'https://iplgame-dc13.restdb.io/rest/gamedata'
+
+
+Get Teams
+curl -k -i -H "Content-Type: application/json"\
+ -H "x-apikey: bbb981b9fc2757c4de907a15523f7b47d1b9d"\
+ -X GET 'https://iplgame-dc13.restdb.io/rest/teamdata'
+
+Get A Team
+curl -k -i -H "Content-Type: application/json"\
+ -H "x-apikey: bbb981b9fc2757c4de907a15523f7b47d1b9d"\
+ -G 'https://iplgame-dc13.restdb.io/rest/teamdata' -d 'q={"name":"Team-2"}'

@@ -5,7 +5,7 @@ from ..core.models.sessiontoken import SessionToken
 
 class SessionManager():
 
-    def create(self, user_id: str, email: str, expires: int=2592000) -> str:
+    def create(self, user_id: str, email: str, role: str, expires: int=2592000) -> str:
         """ returns a new JWT representing a new session. this is used to interact
         with all fetchy endpoints. a default token expires after 2592000 seconds (30 days)"""
 
@@ -17,7 +17,7 @@ class SessionManager():
             token = generate_token(payload, expires)
 
             with dbsession() as session:
-                session_token = SessionToken(user_id, token)
+                session_token = SessionToken(user_id, token, role)
                 session.add(session_token)
 
             return token

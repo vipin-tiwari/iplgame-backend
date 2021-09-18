@@ -17,12 +17,14 @@ class Account(Base):
                 nullable=False)
     user_id = Column(pgsql.TEXT)
     email = Column(pgsql.TEXT)
+    role = Column(pgsql.TEXT)
     secret = Column(pgsql.TEXT)
     creation_utc = Column(pgsql.TIMESTAMP(timezone=False), server_default=func.now())
     last_updated_utc = Column(pgsql.TIMESTAMP(timezone=False), server_default=func.now())
 
 
-    def __init__(self, email: str, secret: str):
-        self.user_id = prefixed_uuid4("usr")
+    def __init__(self, email: str, secret: str, role: str):
+        self.user_id = prefixed_uuid4(role)
         self.email = email
         self.secret = secret
+        self.role = role

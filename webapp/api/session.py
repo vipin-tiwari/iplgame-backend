@@ -16,8 +16,14 @@ class Session(Resource):
         """ create a new session for this user (login). the returned token and uuid are 
         required for future api calls """
         try:
+            print(request.authorization)
+
             email = request.authorization.username
             password = request.authorization.password
+
+            print(request.authorization)
+
+            print("Fetching Input : "+email+" : "+password)
 
             acct_manager = AccountManager()
             result = acct_manager.login(email, password)
@@ -27,12 +33,15 @@ class Session(Resource):
             return ExceptionResponseJson(str(e), e).make_response()
 
 
-    @require_token
+    #@require_token
     def delete(self):
         """ delete the given session token. (logout) """
         try:
+
             user_id = request.authorization.username
             token = request.authorization.password
+
+            print("Fetching Input => "+user_id+" & "+token)
 
             acct_manager = AccountManager()
             result = acct_manager.logout(user_id, token)
